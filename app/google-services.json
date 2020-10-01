@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "820766005084",
+    "firebase_url": "https://mychatapp-8dffc.firebaseio.com",
+    "project_id": "mychatapp-8dffc",
+    "storage_bucket": "mychatapp-8dffc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:820766005084:android:712fa2f6ab0b3b67",
+        "android_client_info": {
+          "package_name": "com.rmagdalen.mychatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "820766005084-2tkp0hm67vit4qb719ug6lhmmlajk9gr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rmagdalen.mychatapp",
+            "certificate_hash": "53765dc124a2d9fdfc1f43b9e4cbb4797b6840d1"
+          }
+        },
+        {
+          "client_id": "820766005084-k63a0h6jjp6rcht9jekrivqcj46iebbh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2zqUxTnaGzoWJgXTlIEEDpH-ZKqdW2Ow"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "820766005084-k63a0h6jjp6rcht9jekrivqcj46iebbh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
