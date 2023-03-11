@@ -1,11 +1,24 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth');
+const { check, validationResult } = require('express-validator');
+
+const User = require('../models/User');
+const InstructorCard = require('../models/InstructorCard');
 
 // @route   GET api/instructorData
 // @desc    Get all instructor data
 // @access  Private
-router.get('/', (req, res) => {
-  res.send('Get all instructor data');
+router.get('/', auth, async (req, res) => {
+  try {
+    const instructorData = await InstructorCard.find({
+      user: req.user.id,
+    }).sort({ date: -1 });
+    res.json(instructorData);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
 });
 
 // @route   POST api/instructorData
