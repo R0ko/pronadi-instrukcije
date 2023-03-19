@@ -6,22 +6,22 @@ const { check, validationResult } = require('express-validator');
 const User = require('../models/User');
 const InstructorCard = require('../models/InstructorCard');
 
-// @route   GET api/instructorData
+// @route   GET api/instructors
 // @desc    Get all instructor data
 // @access  Private
 router.get('/', auth, async (req, res) => {
   try {
-    const instructorData = await InstructorCard.find({
+    const instructors = await InstructorCard.find({
       user: req.user.id,
     }).sort({ date: -1 });
-    res.json(instructorData);
+    res.json(instructors);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
 
-// @route   POST api/instructorData
+// @route   POST api/instructors
 // @desc    Add new instructor data
 // @access  Private
 router.post(
@@ -64,7 +64,7 @@ router.post(
   }
 );
 
-// @route   PUT api/instructorData/:id
+// @route   PUT api/instructors/:id
 // @desc    Update instructor data
 // @access  Private
 router.put('/:id', auth, async (req, res) => {
@@ -80,16 +80,16 @@ router.put('/:id', auth, async (req, res) => {
   } = req.body;
 
   // Build instructor data
-  const instructorDataFields = {};
-  if (name) instructorDataFields.name = name;
-  if (email) instructorDataFields.email = email;
-  if (phone) instructorDataFields.phone = phone;
-  if (subject) instructorDataFields.subject = subject;
-  if (price) instructorDataFields.price = price;
-  if (distance) instructorDataFields.distance = distance;
+  const instructorsFields = {};
+  if (name) instructorsFields.name = name;
+  if (email) instructorsFields.email = email;
+  if (phone) instructorsFields.phone = phone;
+  if (subject) instructorsFields.subject = subject;
+  if (price) instructorsFields.price = price;
+  if (distance) instructorsFields.distance = distance;
   if (numberOfInstructionsHeld)
-    instructorDataFields.numberOfInstructionsHeld = numberOfInstructionsHeld;
-  if (date) instructorDataFields.date = date;
+    instructorsFields.numberOfInstructionsHeld = numberOfInstructionsHeld;
+  if (date) instructorsFields.date = date;
 
   try {
     let instructor = await InstructorCard.findById(req.params.id);
@@ -101,7 +101,7 @@ router.put('/:id', auth, async (req, res) => {
     }
     instructor = await InstructorCard.findByIdAndUpdate(
       req.params.id,
-      { $set: instructorDataFields },
+      { $set: instructorsFields },
       { new: true }
     );
     res.json(instructor);
@@ -111,7 +111,7 @@ router.put('/:id', auth, async (req, res) => {
   }
 });
 
-// @route   DELETE api/instructorData/:id
+// @route   DELETE api/instructors/:id
 // @desc    Delete instructor data
 // @access  Private
 router.delete('/:id', auth, async (req, res) => {
