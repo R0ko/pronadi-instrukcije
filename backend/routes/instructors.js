@@ -8,12 +8,10 @@ const InstructorCard = require('../models/InstructorCard');
 
 // @route   GET api/instructors
 // @desc    Get all instructor data
-// @access  Private
-router.get('/', auth, async (req, res) => {
+// @access  Public
+router.get('/', async (req, res) => {
   try {
-    const instructors = await InstructorCard.find({
-      user: req.user.id,
-    }).sort({ date: -1 });
+    const instructors = await InstructorCard.find().sort({ date: -1 });
     res.json(instructors);
   } catch (err) {
     console.error(err.message);
@@ -23,10 +21,10 @@ router.get('/', auth, async (req, res) => {
 
 // @route   POST api/instructors
 // @desc    Add new instructor data
-// @access  Private
+// @access  Public
 router.post(
   '/',
-  [auth, [check('name', 'Name is required').not().isEmpty()]],
+  [check('name', 'Name is required').not().isEmpty()],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -53,7 +51,6 @@ router.post(
         distance,
         numberOfInstructionsHeld,
         date,
-        user: req.user.id,
       });
       const instructorCard = await newInstructorCard.save();
       res.json(instructorCard);
@@ -96,6 +93,7 @@ router.put('/:id', auth, async (req, res) => {
     if (!instructor)
       return res.status(404).json({ msg: 'Instructor not found' });
     // Make sure user owns instructor (nepotrebno)
+    // Make sure user is the instructor (potrebno)
     if (instructor.user.toString() !== req.user.id) {
       return res.status(401).json({ msg: 'Not authorized!' });
     }
