@@ -9,7 +9,6 @@ app.get('/', (req, res) => res.json({ msg: 'Welcome' }));
 // Defining routes
 app.use('/api/users', require('./routes/users'));
 app.use('/api/auth', require('./routes/auth'));
-app.use('/api/instructors', require('./routes/instructors'));
 
 const PORT = process.env.PORT || 5000;
 
