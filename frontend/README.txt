@@ -1,1 +1,0 @@
-Pronadi instrukcije app
