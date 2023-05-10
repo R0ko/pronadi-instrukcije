@@ -7,8 +7,12 @@ export default function Navbar() {
         Site Name
       </Link>
       <ul>
-        <CustomLink to='/home'>Pocetna</CustomLink>
-        <CustomLink to='/login'>Prijava</CustomLink>
+        {/* If logged in, show hero page, if not logged in, show search */}
+        <CustomLink to='/search'>Pretrazi</CustomLink>
+        <CustomLink to='/myinstructions'>Moje instrukcije</CustomLink>
+        <CustomLink to='/messages'>Poruke</CustomLink>
+        {/* If logged in, show your profile, if not logged in, open login screen */}
+        <CustomLink to='/profile'>Profil</CustomLink>
       </ul>
     </nav>
   );
