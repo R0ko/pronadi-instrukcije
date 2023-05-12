@@ -10,10 +10,11 @@ import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
 
 import UserCardState from './context/userCard/UserCardState';
+import AuthState from './context/auth/AuthState';
 
 const App = () => {
   return (
-    <div className='App'>
+    <AuthState>
       <Navbar />
       <div className='container'>
         <UserCardState>
@@ -28,7 +29,7 @@ const App = () => {
           </Routes>
         </UserCardState>
       </div>
-    </div>
+    </AuthState>
   );
 };
 
