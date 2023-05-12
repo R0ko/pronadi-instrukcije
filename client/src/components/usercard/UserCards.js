@@ -1,20 +1,22 @@
 import React, { Fragment, useContext } from 'react';
 import UserCardItem from './UserCardItem';
-import userCardContext from '../../context/userCard/userCardContext';
+import UserCardContext from '../../context/userCard/userCardContext';
 
 const UserCards = () => {
-  const userContext = useContext(userCardContext);
+  const userContext = useContext(UserCardContext);
 
-  const { userCards } = userContext;
+  const { userCards, filtered } = userContext;
 
   return (
-    <div>
+    <div className='user-list'>
       <Fragment>
-        {userCards.map((userCard) => (
-          <h3>
-            <UserCardItem key={userCard.id} userCard={userCard} />
-          </h3>
-        ))}
+        {filtered !== null
+          ? filtered.map((userCard) => (
+              <UserCardItem key={userCard.id} userCard={userCard} />
+            ))
+          : userCards.map((userCard) => (
+              <UserCardItem key={userCard.id} userCard={userCard} />
+            ))}
       </Fragment>
     </div>
   );
