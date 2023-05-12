@@ -13,6 +13,8 @@ export default function Navbar() {
         <CustomLink to='/messages'>Poruke</CustomLink>
         {/* If logged in, show your profile, if not logged in, open login screen */}
         <CustomLink to='/profile'>Profil</CustomLink>
+        <CustomLink to='/register'>Register</CustomLink>
+        <CustomLink to='/login'>Login</CustomLink>
       </ul>
     </nav>
   );
