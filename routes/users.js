@@ -29,7 +29,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, surname, email, password, user_type } = req.body;
+    const { name, surname, email, password, userType } = req.body;
 
     try {
       let user = await User.findOne({ email });
@@ -42,7 +42,7 @@ router.post(
         surname,
         email,
         password,
-        user_type,
+        userType,
       });
       // Password hashing
       const salt = await bcrypt.genSalt(10);
@@ -75,14 +75,14 @@ router.post(
 // @desc    Update user data
 // @access  Private
 router.put('/:id', auth, async (req, res) => {
-  const { name, surname, email, user_type, rating } = req.body;
+  const { name, surname, email, userType, rating } = req.body;
 
   // Build user data
   const userFields = {};
   if (name) userFields.name = name;
   if (surname) userFields.surname = surname;
   if (email) userFields.email = email;
-  if (user_type) userFields.user_type = user_type;
+  if (userType) userFields.userType = userType;
   if (rating) userFields.rating = rating;
 
   try {
@@ -140,7 +140,7 @@ router.put('/:id/password', auth, async (req, res) => {
 // @access  Private
 router.get('/', auth, async (req, res) => {
   try {
-    const users = await User.find({ user_type: '1' }, { password: 0 }).sort({
+    const users = await User.find({ userType: '1' }, { password: 0 }).sort({
       date: -1,
     });
     res.json(users);

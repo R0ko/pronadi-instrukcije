@@ -9,28 +9,33 @@ import Messages from './pages/Messages';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
 import Register from './components/auth/Register';
+import Alerts from './components/layout/Alerts';
 
 import UserCardState from './context/userCard/UserCardState';
 import AuthState from './context/auth/AuthState';
+import AlertState from './context/alert/AlertState';
 
 const App = () => {
   return (
     <AuthState>
       <Navbar />
-      <div className='container'>
-        <UserCardState>
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/search' element={<Search />} />
-            <Route path='/myinstructions' element={<MyInstructions />} />
-            <Route path='/messages' element={<Messages />} />
-            <Route path='/profile' element={<Profile />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
-            <Route path='*' element={<NotFound />} />
-          </Routes>
-        </UserCardState>
-      </div>
+      <AlertState>
+        <div className='container'>
+          <Alerts />
+          <UserCardState>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/search' element={<Search />} />
+              <Route path='/myinstructions' element={<MyInstructions />} />
+              <Route path='/messages' element={<Messages />} />
+              <Route path='/profile' element={<Profile />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/register' element={<Register />} />
+              <Route path='*' element={<NotFound />} />
+            </Routes>
+          </UserCardState>
+        </div>
+      </AlertState>
     </AuthState>
   );
 };

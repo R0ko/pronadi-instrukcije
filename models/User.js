@@ -21,7 +21,7 @@ const UserSchema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  user_type: {
+  userType: {
     type: Number,
     default: '0', // 0 for student,  1 for instructor, 2 for premium instructor
   },
