@@ -18,8 +18,8 @@ import AlertState from './context/alert/AlertState';
 const App = () => {
   return (
     <AuthState>
-      <Navbar />
       <AlertState>
+        <Navbar />
         <div className='container'>
           <Alerts />
           <UserCardState>

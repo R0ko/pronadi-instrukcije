@@ -1,18 +1,25 @@
 import {
-  REGISTER_FAIL,
   REGISTER_SUCCESS,
-  LOGIN_FAIL,
+  REGISTER_FAIL,
+  USER_LOADED,
+  AUTH_ERROR,
   LOGIN_SUCCESS,
+  LOGIN_FAIL,
   LOGOUT,
   CLEAR_ERRORS,
-  AUTH_ERROR,
-  USER_LOADED,
 } from '../types';
 
-const AuthReducer = (state, action) => {
+const authReducer = (state, action) => {
   switch (action.type) {
+    case USER_LOADED:
+      return {
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        user: action.payload,
+      };
     case REGISTER_SUCCESS:
-      localStorage.setItem('token', action.payload.token);
+    case LOGIN_SUCCESS:
       return {
         ...state,
         ...action.payload,
@@ -20,12 +27,15 @@ const AuthReducer = (state, action) => {
         loading: false,
       };
     case REGISTER_FAIL:
-      localStorage.removeItem('token');
+    case AUTH_ERROR:
+    case LOGIN_FAIL:
+    case LOGOUT:
       return {
         ...state,
         token: null,
         isAuthenticated: false,
-        loading: null,
+        loading: false,
+        user: null,
         error: action.payload,
       };
     case CLEAR_ERRORS:
@@ -34,8 +44,8 @@ const AuthReducer = (state, action) => {
         error: null,
       };
     default:
-      return state;
+      throw new Error(`Unsupported type of: ${action.type}`);
   }
 };
 
-export default AuthReducer;
+export default authReducer;

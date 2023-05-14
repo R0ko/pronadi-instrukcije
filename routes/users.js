@@ -50,7 +50,7 @@ router.post(
       await user.save();
       const payload = {
         user: {
-          user_id: user.id,
+          id: user.id,
         },
       };
       jwt.sign(
