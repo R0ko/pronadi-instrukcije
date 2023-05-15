@@ -81,6 +81,7 @@ export const login = async (dispatch, formData) => {
 
 // Logout
 export const logout = (dispatch) => {
+  console.log('dispatch LOGOUT');
   dispatch({ type: LOGOUT });
 };
 
