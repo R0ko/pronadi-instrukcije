@@ -1,13 +1,17 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useAuth, logout } from '../../context/auth/AuthState';
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
+import UserCardContext from '../../context/userCard/userCardContext';
 
 const Navbar = ({ title, icon }) => {
   const [authState, authDispatch] = useAuth();
   const { isAuthenticated } = authState;
+  const userCardContext = useContext(UserCardContext);
+  const { clearUserCards } = userCardContext;
 
   const onLogout = () => {
+    clearUserCards();
     logout(authDispatch);
   };
 

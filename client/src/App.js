@@ -19,10 +19,10 @@ const App = () => {
   return (
     <AuthState>
       <AlertState>
-        <Navbar />
-        <div className='container'>
-          <Alerts />
-          <UserCardState>
+        <UserCardState>
+          <Navbar />
+          <div className='container'>
+            <Alerts />
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/search' element={<Search />} />
@@ -33,8 +33,8 @@ const App = () => {
               <Route path='/register' element={<Register />} />
               <Route path='*' element={<NotFound />} />
             </Routes>
-          </UserCardState>
-        </div>
+          </div>
+        </UserCardState>
       </AlertState>
     </AuthState>
   );

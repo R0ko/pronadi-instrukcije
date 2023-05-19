@@ -1,4 +1,9 @@
-import { FILTER_USERCARDS, CLEAR_FILTER, GET_USERCARDS } from '../types';
+import {
+  FILTER_USERCARDS,
+  CLEAR_FILTER,
+  GET_USERCARDS,
+  CLEAR_USERCARDS,
+} from '../types';
 
 const UserCardReducer = (state, action) => {
   switch (action.type) {
@@ -7,6 +12,13 @@ const UserCardReducer = (state, action) => {
         ...state,
         userCards: action.payload,
         loading: false,
+      };
+    case CLEAR_USERCARDS:
+      return {
+        ...state,
+        userCards: null,
+        loading: false,
+        filtered: null,
       };
     case FILTER_USERCARDS:
       return {

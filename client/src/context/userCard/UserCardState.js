@@ -46,9 +46,15 @@ const UserCardState = (props) => {
   const filterUserCards = (text) => {
     dispatch({ type: FILTER_USERCARDS, payload: text });
   };
+
   //Clear filter
   const clearFilter = () => {
     dispatch({ type: CLEAR_FILTER });
+  };
+
+  // Clear UserCards
+  const clearUserCards = () => {
+    dispatch({ type: CLEAR_USERCARDS });
   };
 
   return (
@@ -59,6 +65,7 @@ const UserCardState = (props) => {
         filterUserCards,
         clearFilter,
         getUserCards,
+        clearUserCards,
       }}
     >
       {props.children}
