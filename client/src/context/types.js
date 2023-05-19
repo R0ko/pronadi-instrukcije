@@ -1,8 +1,6 @@
-// export const ADD_USERCARD = 'ADD_USERCARD';
-// export const DELETE_USERCARD = 'DELETE_USERCARD';
-// export const SET_CURRENT = 'SET_CURRENT';
-// export const CLEAR_CURRENT = 'CLEAR_CURRENT';
-// export const UPDATE_USERCARD = 'UPDATE_USERCARD';
+export const GET_USERCARDS = 'GET_USERCARDS';
+export const CLEAR_USERCARDS = 'CLEAR_USERCARDS';
+export const USERCARD_ERROR = 'USERCARD_ERROR';
 export const FILTER_USERCARDS = 'FILTER_USERCARDS';
 export const CLEAR_FILTER = 'CLEAR_FILTER';
 export const SET_ALERT = 'SET_ALERT';

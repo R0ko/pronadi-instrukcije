@@ -1,64 +1,18 @@
 import React, { useReducer } from 'react';
-import uuid from 'uuid';
+import axios from 'axios';
 import UserCardContext from './userCardContext';
 import UserCardReducer from './userCardReducer';
-import { FILTER_USERCARDS, CLEAR_FILTER } from '../types';
+import {
+  FILTER_USERCARDS,
+  CLEAR_FILTER,
+  GET_USERCARDS,
+  CLEAR_USERCARDS,
+  USERCARD_ERROR,
+} from '../types';
 
 const UserCardState = (props) => {
   const initialState = {
-    userCards: [
-      {
-        id: 1,
-        name: 'testni',
-        surname: 'instruktor',
-        instructorData: {
-          price: '6,25',
-          numberofInstructions: '0',
-          subjects: ['Matematika', 'Hrvatski', 'Engleski'],
-        },
-        userType: '2',
-      },
-      {
-        id: 2,
-        name: 'testni',
-        surname: 'instruktor2',
-        instructorData: {
-          price: '6,25',
-          numberofInstructions: '0',
-          subjects: ['Glazbeni', 'Hrvatski', 'Engleski'],
-        },
-        userType: '2',
-      },
-      {
-        id: 3,
-        name: 'testni',
-        surname: 'instruktor3',
-        instructorData: {
-          price: '6,25',
-          numberofInstructions: '0',
-          subjects: ['Glazbeni'],
-        },
-        userType: '2',
-      },
-      {
-        id: 4,
-        name: 'testni',
-        surname: 'instruktor4',
-        instructorData: {
-          price: '6,25',
-          numberofInstructions: '0',
-          subjects: ['Srpski', 'Slovenski'],
-        },
-        userType: '2',
-      },
-      {
-        id: 5,
-        name: 'testni',
-        surname: 'instruktor5',
-        instructorData: { price: '6,25', numberofInstructions: '0' },
-        userType: '2',
-      },
-    ],
+    userCards: null,
     filtered: null,
   };
 
@@ -69,6 +23,24 @@ const UserCardState = (props) => {
   //Set Current User
   //Clear Current User
   //Update User
+
+  // Get Usercards
+  const getUserCards = async () => {
+    try {
+      const res = await axios.get('/api/users');
+      const instructorData = res.data.filter((user) => user.userType === 1);
+
+      dispatch({
+        type: GET_USERCARDS,
+        payload: instructorData,
+      });
+    } catch (err) {
+      dispatch({
+        type: USERCARD_ERROR,
+        payload: err.response.msg,
+      });
+    }
+  };
 
   //Filter Users
   const filterUserCards = (text) => {
@@ -86,6 +58,7 @@ const UserCardState = (props) => {
         filtered: state.filtered,
         filterUserCards,
         clearFilter,
+        getUserCards,
       }}
     >
       {props.children}
