@@ -18,8 +18,8 @@ import AlertState from './context/alert/AlertState';
 const App = () => {
   return (
     <AuthState>
-      <AlertState>
-        <UserCardState>
+      <UserCardState>
+        <AlertState>
           <Navbar />
           <div className='container'>
             <Alerts />
@@ -34,17 +34,10 @@ const App = () => {
               <Route path='*' element={<NotFound />} />
             </Routes>
           </div>
-        </UserCardState>
-      </AlertState>
+        </AlertState>
+      </UserCardState>
     </AuthState>
   );
 };
 
 export default App;
-
-// {/* If logged in, show hero page, if not logged in, show search */}
-// <CustomLink to='/search'>Pretrazi</CustomLink>
-// <CustomLink to='/myinstructions'>Moje instrukcije</CustomLink>
-// <CustomLink to='/messages'>Poruke</CustomLink>
-// {/* If logged in, show your profile, if not logged in, open login screen */}
-// <CustomLink to='/profile'>Profil</CustomLink>

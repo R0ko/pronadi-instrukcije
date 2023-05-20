@@ -28,15 +28,20 @@ export const useAuth = () => {
 // Load User
 export const loadUser = async (dispatch) => {
   try {
-    console.log('loadUser token pre get req: ' + localStorage.token);
-
+    console.log(
+      'LOAD axios headers after setAuthToken: ',
+      axios.defaults.headers.common['x-auth-token']
+    );
+    console.log('loadUser localStorage token: ' + localStorage.token);
     const res = await axios.get('/api/auth');
+    console.log('loadUser res.data: ', res.data);
 
     dispatch({
       type: USER_LOADED,
       payload: res.data,
     });
   } catch (err) {
+    console.log('Auth error');
     dispatch({ type: AUTH_ERROR });
   }
 };
@@ -50,7 +55,9 @@ export const register = async (dispatch, formData) => {
       type: REGISTER_SUCCESS,
       payload: res.data,
     });
-    console.log('register token pre loadUser: ' + localStorage.token);
+
+    console.log('register token pre loadUser: ', localStorage.token);
+
     loadUser(dispatch);
   } catch (err) {
     dispatch({
@@ -64,14 +71,18 @@ export const register = async (dispatch, formData) => {
 export const login = async (dispatch, formData) => {
   try {
     const res = await axios.post('/api/auth', formData);
-
+    console.log('login res.data: ', res.data);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
+    console.log(
+      'login before loadUser localStorage token: ' + localStorage.token
+    );
 
     loadUser(dispatch);
   } catch (err) {
+    console.log('Login fail');
     dispatch({
       type: LOGIN_FAIL,
       payload: err.response.data.msg,
@@ -91,6 +102,10 @@ export const clearErrors = (dispatch) => dispatch({ type: CLEAR_ERRORS });
 // AuthState Provider Component
 
 const AuthState = (props) => {
+  console.log(
+    'AuthState  localStorage token before initialState: ' + localStorage.token
+  );
+
   const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: null,
@@ -101,28 +116,34 @@ const AuthState = (props) => {
 
   const [state, dispatch] = useReducer(AuthReducer, initialState);
 
+  ///////////////////////////////////////////
+  // set token for initial app loading
+  setAuthToken(state.token);
+  console.log(
+    'AuthState  localStorage token after setAuthToken: ' + localStorage.token
+  );
+
+  // load user on first run or refresh
+  if (state.loading) {
+    console.log('udri');
+    loadUser(dispatch);
+  }
+
   useEffect(() => {
-    const loadUserAndSetToken = async () => {
-      if (state.token) {
-        setAuthToken(state.token);
-      }
+    console.log('useEffect token change');
+    console.log(
+      'useEffect localStorage token before setAuthToken: ' + localStorage.token
+    );
 
-      try {
-        const res = await axios.get('/api/auth');
-
-        dispatch({
-          type: USER_LOADED,
-          payload: res.data,
-        });
-      } catch (err) {
-        dispatch({ type: AUTH_ERROR });
-      }
-    };
-
-    loadUserAndSetToken();
+    setAuthToken(state.token);
+    console.log(
+      'useEffect axios headers after setAuthToken: ',
+      axios.defaults.headers.common['x-auth-token']
+    );
+    console.log(
+      'useEffect localStorage token after setAuthToken: ' + localStorage.token
+    );
   }, [state.token]);
-
-  // ...rest of the component
 
   return (
     <AuthContext.Provider value={{ state, dispatch }}>

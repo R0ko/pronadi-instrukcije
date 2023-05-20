@@ -18,12 +18,6 @@ const UserCardState = (props) => {
 
   const [state, dispatch] = useReducer(UserCardReducer, initialState);
 
-  //Add User
-  //Delete USer
-  //Set Current User
-  //Clear Current User
-  //Update User
-
   // Get Usercards
   const getUserCards = async () => {
     try {
