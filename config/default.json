@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://rokoadmin:rokoadmin123@pronadi-instrukcije.eds2jyl.mongodb.net/?retryWrites=true&w=majority",
+    "jwtSecret" : "secret"
+}
